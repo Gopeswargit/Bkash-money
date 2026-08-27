@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "collections": {
+    "users": {
+      "description": "User profiles with custom badges, bio, skills, and stats",
+      "fields": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "bio": { "type": "string" },
+        "title": { "type": "string" },
+        "bKashNumber": { "type": "string" },
+        "website": { "type": "string" },
+        "github": { "type": "string" },
+        "facebook": { "type": "string" },
+        "specialties": { "type": "array", "items": { "type": "string" } },
+        "followersCount": { "type": "number" },
+        "followingCount": { "type": "number" },
+        "createdAt": { "type": "string" }
+      }
+    },
+    "posts": {
+      "description": "Community posts with simulations, videos, code, thoughts",
+      "fields": {
+        "authorId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "authorPhoto": { "type": "string" },
+        "authorTitle": { "type": "string" },
+        "content": { "type": "string" },
+        "category": { "type": "string" },
+        "mediaType": { "type": "string" },
+        "mediaUrl": { "type": "string" },
+        "simulationType": { "type": "string" },
+        "simulationConfig": { "type": "object" },
+        "simulationCode": { "type": "string" },
+        "likes": { "type": "array", "items": { "type": "string" } },
+        "likesCount": { "type": "number" },
+        "commentsCount": { "type": "number" },
+        "sharesCount": { "type": "number" },
+        "createdAt": { "type": "string" }
+      }
+    },
+    "comments": {
+      "description": "Comments on community simulation posts",
+      "fields": {
+        "postId": { "type": "string" },
+        "authorId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "authorPhoto": { "type": "string" },
+        "content": { "type": "string" },
+        "createdAt": { "type": "string" }
+      }
+    },
+    "liveStreams": {
+      "description": "Active and scheduled live streams with interactive chat and simulation sync",
+      "fields": {
+        "hostId": { "type": "string" },
+        "hostName": { "type": "string" },
+        "hostPhoto": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "simulationType": { "type": "string" },
+        "status": { "type": "string" },
+        "streamType": { "type": "string" },
+        "viewerCount": { "type": "number" },
+        "likesCount": { "type": "number" },
+        "createdAt": { "type": "string" }
+      }
+    },
+    "liveStreamMessages": {
+      "description": "Live real-time chat messages during a stream",
+      "fields": {
+        "streamId": { "type": "string" },
+        "senderId": { "type": "string" },
+        "senderName": { "type": "string" },
+        "senderPhoto": { "type": "string" },
+        "message": { "type": "string" },
+        "type": { "type": "string" },
+        "createdAt": { "type": "string" }
+      }
+    },
+    "follows": {
+      "description": "Follow relations between users",
+      "fields": {
+        "followerId": { "type": "string" },
+        "followedId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Digital Earning & bKash Hub",
+  "description": "বিকাশ অ্যাকাউন্টের মাধ্যমে বৈধ আয়ের উপায়, সার্ভিস পোর্টফোলিও, লাইভ স্ট্রিমিং ও কমিউনিটি সিমুলেশন স্টুডিও।",
+  "requestFramePermissions": ["microphone", "camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
