@@ -37,6 +37,7 @@ import { SimulationShareModal, SimulationShareData } from './SimulationShareModa
 import { WhiteboardCanvas } from './WhiteboardCanvas';
 import { VoiceRecorderStudio } from './VoiceRecorderStudio';
 import { LiveSimulationCodeEditor } from './LiveSimulationCodeEditor';
+import { SimulationAiInsightPanel } from './SimulationAiInsightPanel';
 import { CREATOR_PROFILE } from '../data/socialLinks';
 
 interface Props {
@@ -2174,6 +2175,21 @@ export const MathSimulationStudio: React.FC<Props> = ({ onSelectForInvoice }) =>
               </button>
             </div>
           </div>
+
+          {/* Dedicated Per-Simulation AI Research, Summary & Q&A Panel */}
+          <SimulationAiInsightPanel
+            simulationKey={
+              isCustomCodeActive 
+                ? 'custom_code' 
+                : activeCategory === 'mechanics'
+                ? mechanicsType === 'double_pendulum' ? 'mechanics_double_pendulum' : mechanicsType === 'spring_damper' ? 'mechanics_spring_damper' : 'mechanics_projectile'
+                : activeCategory === 'calculus_ode_pde'
+                ? calculusType === 'pde_heat' ? 'calculus_pde_heat' : calculusType === 'ode_slope' ? 'calculus_ode_slope' : 'calculus_riemann'
+                : activeCategory
+            }
+            activeCategory={activeCategory}
+            onSelectForInvoice={onSelectForInvoice}
+          />
 
         </div>
 

@@ -36,6 +36,8 @@ import {
 } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import confetti from 'canvas-confetti';
+import { SimulationAiInsightPanel } from './SimulationAiInsightPanel';
+import { Bot } from 'lucide-react';
 
 interface Props {
   onOpenSimulation?: (simType: string, customCode?: string) => void;
@@ -68,6 +70,7 @@ export const SimulationCommunityFeed: React.FC<Props> = ({
   const [comments, setComments] = useState<PostComment[]>([]);
   const [commentInput, setCommentInput] = useState('');
   const [copiedPostId, setCopiedPostId] = useState<string | null>(null);
+  const [expandedAiPostId, setExpandedAiPostId] = useState<string | null>(null);
 
   // 1. Listen for posts stream in real-time
   useEffect(() => {
@@ -463,18 +466,44 @@ export const SimulationCommunityFeed: React.FC<Props> = ({
                       </div>
                     </div>
 
-                    <button
-                      onClick={() => {
-                        if (onOpenSimulation) {
-                          onOpenSimulation(post.simulationType || 'robotics', post.simulationCode);
-                          window.scrollTo({ top: 0, behavior: 'smooth' });
-                        }
-                      }}
-                      className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-lg shadow-indigo-600/30 flex items-center gap-1.5"
-                    >
-                      <Play className="w-3.5 h-3.5 fill-white" />
-                      <span>সিমুলেশন খুলুন</span>
-                    </button>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <button
+                        onClick={() => setExpandedAiPostId(expandedAiPostId === post.id ? null : post.id)}
+                        className={`px-3 py-2 rounded-xl border text-xs font-semibold flex items-center gap-1.5 transition-all ${
+                          expandedAiPostId === post.id
+                            ? 'bg-pink-600 border-pink-500 text-white shadow-lg shadow-pink-600/30'
+                            : 'bg-neutral-900 border-neutral-700 text-pink-400 hover:text-pink-300'
+                        }`}
+                        title="এই নির্দিষ্ট প্রজেক্টের AI সারসংক্ষেপ ও প্রশ্নোত্তর দেখুন"
+                      >
+                        <Bot className="w-3.5 h-3.5" />
+                        <span>{expandedAiPostId === post.id ? 'AI বন্ধ করুন' : 'AI সারসংক্ষেপ ও Q&A'}</span>
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          if (onOpenSimulation) {
+                            onOpenSimulation(post.simulationType || 'robotics', post.simulationCode);
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                          }
+                        }}
+                        className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-lg shadow-indigo-600/30 flex items-center gap-1.5"
+                      >
+                        <Play className="w-3.5 h-3.5 fill-white" />
+                        <span>সিমুলেশন খুলুন</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Inline AI Insight for Community Simulation */}
+                {post.simulationType && expandedAiPostId === post.id && (
+                  <div className="mt-3">
+                    <SimulationAiInsightPanel
+                      simulationKey={post.simulationType}
+                      activeCategory={post.category || post.simulationType}
+                      customCodeString={post.simulationCode}
+                    />
                   </div>
                 )}
 
